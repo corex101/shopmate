@@ -1,0 +1,75 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table admins {
+  id int [primary key] // Unique identifier for each admin
+  name varchar(20) // Admin name
+  password varchar(50) // Admin password (hashed)
+}
+
+Table cart {
+  id int [primary key] // Unique identifier for each cart item
+  user_id int // Foreign key referencing users(id)
+  pid int // Foreign key referencing products(id)
+  name varchar(100) // Product name
+  price int // Product price
+  quantity int // Quantity of the product
+  image varchar(100) // Product image
+}
+
+Table messages {
+  id int [primary key] // Unique identifier for each message
+  user_id int // Foreign key referencing users(id)
+  name varchar(100) // Sender's name
+  email varchar(100) // Sender's email
+  number varchar(12) // Sender's contact number
+  message varchar(500) // Content of the message
+}
+
+Table orders {
+  id int [primary key] // Unique identifier for each order
+  user_id int // Foreign key referencing users(id)
+  name varchar(20) // Name of the person who placed the order
+  number varchar(10) // Contact number for the order
+  email varchar(50) // Email for order confirmation
+  method varchar(50) // Payment method
+  address varchar(500) // Delivery address
+  total_products varchar(1000) // Details of the products ordered
+  total_price int // Total price of the order
+  placed_on date // Date when the order was placed
+  payment_status varchar(20) // Status of the payment
+}
+
+Table products {
+  id int [primary key] // Unique identifier for each product
+  name varchar(100) // Product name
+  details varchar(500) // Product details
+  price int // Product price
+  image_01 varchar(100) // First product image
+  image_02 varchar(100) // Second product image
+  image_03 varchar(100) // Third product image
+}
+
+Table users {
+  id int [primary key] // Unique identifier for each user
+  name varchar(20) // User name
+  email varchar(50) // User email
+  password varchar(50) // User password (hashed)
+}
+
+Table wishlist {
+  id int [primary key] // Unique identifier for each wishlist item
+  user_id int // Foreign key referencing users(id)
+  pid int // Foreign key referencing products(id)
+  name varchar(100) // Product name
+  price int // Product price
+  image varchar(100) // Product image
+}
+
+// Define relationships
+Ref: cart.user_id > users.id // Each cart item belongs to one user
+Ref: cart.pid > products.id // Each cart item references one product
+Ref: messages.user_id > users.id // Each message belongs to one user
+Ref: orders.user_id > users.id // Each order belongs to one user
+Ref: wishlist.user_id > users.id // Each wishlist item belongs to one user
+Ref: wishlist.pid > products.id // Each wishlist item references one product
